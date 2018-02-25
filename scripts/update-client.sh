@@ -23,7 +23,7 @@ set -o pipefail
 
 if ! which mvn > /dev/null 2>&1; then
   echo "Maven is not installed."
-  exit
+#  exit
 fi
 
 SCRIPT_ROOT=$(dirname "${BASH_SOURCE}")
@@ -40,7 +40,7 @@ pushd "${CLIENT_ROOT}" > /dev/null
 CLIENT_ROOT=`pwd`
 popd > /dev/null
 
-TEMP_FOLDER=$(mktemp -d) 
+TEMP_FOLDER=$(mktemp -d)
 trap "rm -rf ${TEMP_FOLDER}" EXIT SIGINT
 
 SETTING_FILE="${TEMP_FOLDER}/settings"
@@ -57,7 +57,7 @@ else
 fi
 
 echo ">>> Running python generator from the gen repo"
-"${GEN_ROOT}/openapi/python.sh" "${CLIENT_ROOT}" "${SETTING_FILE}" 
+"${GEN_ROOT}/openapi/python.sh" "${CLIENT_ROOT}" "${SETTING_FILE}"
 mv "${CLIENT_ROOT}/swagger.json" "${SCRIPT_ROOT}/swagger.json"
 
 echo ">>> updating version information..."
